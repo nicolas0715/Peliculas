@@ -23,4 +23,4 @@ def pushear_html():
     origin = repo.remote('origin')
     origin_url = origin.url.replace('https://', f'https://token:{token}@') 
     origin.set_url(origin_url)
-    origin.push()
+    origin.push() 
