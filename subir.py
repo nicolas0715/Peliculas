@@ -11,7 +11,7 @@ carpeta_id = '1ckVvGyKhzw9fA9Sen-dsUY2Kh60jUGO9'
 
 #Ruta raiz
 ruta_raiz = os.getcwd() 
-repo_path = 'C:/Users/otero/Desktop/Pokio/Programacion/Proyectos/Proyectos_varios/Web_Scrapping4-'
+#repo_path = 'C:/Users/otero/Desktop/Pokio/Programacion/Proyectos/Proyectos_varios/Web_Scrapping4-'
 
 def obtener_html(): #Obtener el archivo html
     archivo_html = [archivo for archivo in directorio if archivo.endswith('.html')]
@@ -19,7 +19,7 @@ def obtener_html(): #Obtener el archivo html
 
 def subir_html(carpeta_id, file_path):
     # Credenciales de Google Drive
-    ruta_archivo_credenciales = os.path.join(repo_path, 'driven-striker-386616-85af28be82bc.json') 
+    ruta_archivo_credenciales = os.path.join(ruta_raiz, 'driven-striker-386616-85af28be82bc.json') 
     credentials = service_account.Credentials.from_service_account_file(ruta_archivo_credenciales, scopes=['https://www.googleapis.com/auth/drive'])
     drive_service = build('drive', 'v3', credentials=credentials)
 
