@@ -4,7 +4,6 @@ import random
 from datetime import datetime
 import os
 
-from subir import subir_html
 from pushear import pushear_html
 '''
 directory = (os.environ['GITHUB_WORKSPACE'])
@@ -77,7 +76,4 @@ ruta_raiz = os.getcwd()
 
 carpeta_id = '1ckVvGyKhzw9fA9Sen-dsUY2Kh60jUGO9'
 
-subir_html(carpeta_id, file_path)
-
-    
 pushear_html()
