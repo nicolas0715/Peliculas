@@ -1,0 +1,40 @@
+
+body{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+h2{
+    color: yellow;
+}
+.peliculas{
+    display: flex;
+    flex-wrap: wrap;
+}
+.pelicula{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 15px;
+    box-shadow: 2px 0px 3px black;
+    max-width: 50%;
+}
+.nombre{
+    font-size: 25px;
+    margin: 0px 5px;
+}
+.pelicula p:last-child{
+    font-size: 20px;
+}
+.fecha{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    color: red;
+}

@@ -1,0 +1,35 @@
+name: Ejecutar pelis
+    
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  ejecutar_pelis:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v2
+      
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+          
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+      
+      - name: Setear variable de entorno
+        run: echo "NICO_TOKEN=$GITHUB_TOKEN" >> $GITHUB_ENV
+
+      - name: Configurar nombre de usuario y correo electrónico
+        run: |
+            git config user.name "nicolas0715"
+            git config user.email "oteronicolas3@gmail.com"
+
+      - name: Ejecutar pelis.py
+        run: python pelis.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.NICO_TOKEN }}
