@@ -51,6 +51,7 @@ with open(file_path, 'w') as file:
     
     file.write('<h2>La Pelicula del Dia es:</h2>\n')
     file.write('<div class="pelicula">\n')
+    file.write(f'<p>Nº ' + peli_random['numero'] + '</p>\n')
     file.write(f'<img alt="' + peli_random['nombre'] + '" height="67" src="' + peli_random['imagen'] + '" width="45"/>\n')
     file.write('<p class="nombre">' + peli_random['nombre'] + '</p>\n')
     file.write('<p>(' + peli_random['ano'] + ')</p>\n')
@@ -60,6 +61,7 @@ with open(file_path, 'w') as file:
     file.write('<div class="peliculas">\n')
     for p in pelis:
         file.write('<div class="pelicula">\n')
+        file.write(f'<p>Nº ' + p['numero'] + '</p>\n')
         file.write(f'<img alt="' + p['nombre'] + '" height="67" src="' + p['imagen'] + '" width="45"/>\n')
         file.write('<p class="nombre">' + p['nombre'] + '</p>\n')
         file.write('<p>(' + p['ano'] + ')</p>\n')
