@@ -39,9 +39,11 @@ print(pelis)
 peli_random = random.choice(pelis)
 with open(file_path, 'w') as file:
     print('Inicia a crear el HTML')
-    file.write('<html>\n')
+    file.write('<!DOCTYPE html>\n')
+    file.write('<html lang="es">\n')
     file.write('<head>\n')
     file.write('<meta charset="UTF-8">\n')
+    file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">\n')
     file.write('<title>Pelis</title>\n')
     file.write('<link rel="stylesheet" href="./index.css">\n')
     file.write('</head>\n')
@@ -61,8 +63,8 @@ with open(file_path, 'w') as file:
     file.write('<div class="peliculas">\n')
     for p in pelis:
         file.write('<div class="pelicula">\n')
-        file.write(f'<p>Nº ' + p['numero'] + '</p>\n')
-        file.write(f'<img alt="' + p['nombre'] + '" height="67" src="' + p['imagen'] + '" width="45"/>\n')
+        file.write(f'<p>Nº ' + p['numero'] + '</p>\n') #    67                                   45
+        file.write(f'<img alt="' + p['nombre'] + '" height="90" src="' + p['imagen'] + '" width="68"/>\n')
         file.write('<p class="nombre">' + p['nombre'] + '</p>\n')
         file.write('<p>(' + p['ano'] + ')</p>\n')
         file.write('</div>\n')
