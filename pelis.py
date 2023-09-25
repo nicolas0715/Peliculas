@@ -67,7 +67,7 @@ with open(file_path, 'w') as file:
     
     file.write('<h2>Peliculas</h2>\n')
     file.write('<div class="peliculas">\n')
-    for p in datos_peliculas:
+    for pelicula in datos_peliculas:
         file.write('<div class="pelicula">\n')
         file.write('<img alt="' + pelicula['Nombre de la película'] + '" height="90" src="' + pelicula['Imagen'] + '" width="68"/>\n')
         file.write(f'<p class="nombre">' + pelicula['Nombre de la película'] + '</p>\n')
