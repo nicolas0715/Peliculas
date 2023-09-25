@@ -32,8 +32,8 @@ for div, link in zip(divs, links):
     audiencescore = link.find('score-pairs')['audiencescore']
 
     pelicula = {
-        'Nombre de la película': nombre_pelicula,
-        'Fecha de streaming': fecha_streaming,
+        'Nombre_película': nombre_pelicula,
+        'Fecha_streaming': fecha_streaming,
         'Imagen': imagen,
         'Criticsscore': criticsscore,
         'Audiencescore': audiencescore
@@ -62,11 +62,11 @@ with open(file_path, 'w') as file:
     file.write('<div class="peliculas">\n')
     for pelicula in datos_peliculas:
         file.write('<div class="pelicula">\n')
-        file.write('<img alt="' + pelicula['Nombre de la película'] + '" height="90" src="' + pelicula['Imagen'] + '" width="68"/>\n')
-        file.write(f'<p class="nombre">' + pelicula['Nombre de la película'] + '</p>\n')
-        file.write(f"<p>Fecha de streaming: " + pelicula['Fecha de streaming'] + '</p>\n')
-        file.write(f"<p>Puntuación de críticos: " + pelicula['Puntuación de críticos'] + '%</p>\n')
-        file.write(f"<p>Puntuación de la audiencia: " + pelicula['Puntuación de la audiencia'] + '%</p>\n')
+        file.write('<img alt="' + pelicula['Nombre_película'] + '" height="90" src="' + pelicula['Imagen'] + '" width="68"/>\n')
+        file.write(f'<p class="nombre">' + pelicula['Nombre_película'] + '</p>\n')
+        file.write(f"<p>Fecha de streaming: " + pelicula['Fecha_streaming'] + '</p>\n')
+        file.write(f"<p>Puntuación de críticos: " + pelicula['Criticsscore'] + '%</p>\n')
+        file.write(f"<p>Puntuación de la audiencia: " + pelicula['Audiencescore'] + '%</p>\n')
         file.write('</div>\n')
     file.write('</div>\n')
     file.write('</body>\n')
