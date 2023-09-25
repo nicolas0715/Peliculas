@@ -19,37 +19,28 @@ html_content = response.content
 soup = BeautifulSoup(html_content, "html.parser")
 #print(soup)
 
-peliculas = soup.find_all('div', {'class': 'js-tile-link'})
-print(peliculas)
+divs = soup.find_all('div', class_='js-tile-link')
+links = soup.find_all('a', class_='js-tile-link')
 
 datos_peliculas = []
-for pelicula in peliculas:
-    nombre_pelicula = pelicula.find('span', {'data-qa': 'discovery-media-list-item-title'}).text.strip()
-    fecha_streaming = pelicula.find('span', {'data-qa': 'discovery-media-list-item-start-date'}).text.strip()
-    imagen = pelicula.find('img', {'class': 'posterImage'})['src']
-    criticsscore = pelicula.find('score-pairs')['criticsscore']
-    audiencescore = pelicula.find('score-pairs')['audiencescore']
-    
-    datos_pelicula = {
+for div, link in zip(divs, links):
+    # Extrae los datos que necesitas de cada etiqueta
+    nombre_pelicula = div.find('span', class_='p--small').get_text(strip=True)
+    fecha_streaming = div.find('span', class_='smaller').get_text(strip=True)
+    imagen = div.find('img')['src']
+    criticsscore = link.find('score-pairs')['criticsscore']
+    audiencescore = link.find('score-pairs')['audiencescore']
+
+    pelicula = {
         'Nombre de la película': nombre_pelicula,
         'Fecha de streaming': fecha_streaming,
         'Imagen': imagen,
-        'Puntuación de críticos': criticsscore,
-        'Puntuación de la audiencia': audiencescore
+        'Criticsscore': criticsscore,
+        'Audiencescore': audiencescore
     }
     
-    datos_peliculas.append(datos_pelicula)
-
-
-
-for idx, pelicula in enumerate(datos_peliculas, start=1):
-    print(f"Película {idx}:")
-    print(f"Nombre: {pelicula['Nombre de la película']}")
-    print(f"Fecha de streaming: {pelicula['Fecha de streaming']}")
-    print(f"Imagen: {pelicula['Imagen']}")
-    print(f"Puntuación de críticos: {pelicula['Puntuación de críticos']}")
-    print(f"Puntuación de la audiencia: {pelicula['Puntuación de la audiencia']}")
-    print("\n")
+    # Agrega el diccionario a la lista de datos de películas
+    datos_peliculas.append(pelicula)
 
 with open(file_path, 'w') as file:
     print('Inicia a crear el HTML')
