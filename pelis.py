@@ -28,6 +28,23 @@ for div, link in zip(divs, links):
     nombre_pelicula = div.find('span', class_='p--small').get_text(strip=True)
     fecha_streaming = div.find('span', class_='smaller').get_text(strip=True)
     imagen = div.find('img')['src']
+    criticsscore = div.find('score-pairs')['criticsscore']
+    audiencescore = div.find('score-pairs')['audiencescore']
+
+    pelicula = {
+        'Nombre_película': nombre_pelicula,
+        'Fecha_streaming': fecha_streaming,
+        'Imagen': imagen,
+        'Criticsscore': criticsscore,
+        'Audiencescore': audiencescore
+    }
+    
+    # Agrega el diccionario a la lista de datos de películas
+    datos_peliculas.append(pelicula)
+    
+    nombre_pelicula = link.find('span', class_='p--small').get_text(strip=True)
+    fecha_streaming = link.find('span', class_='smaller').get_text(strip=True)
+    imagen = link.find('img')['src']
     criticsscore = link.find('score-pairs')['criticsscore']
     audiencescore = link.find('score-pairs')['audiencescore']
 
