@@ -1,8 +1,12 @@
 name: Pelicula del Dia
     
+#on:
+#  schedule:
+#    - cron: '0 22 * * *'
 on:
-  schedule:
-    - cron: '0 22 * * *'
+  push:
+    branches:
+      - master
 
 jobs:
   ejecutar_pelis:
