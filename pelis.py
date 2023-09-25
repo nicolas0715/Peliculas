@@ -12,31 +12,45 @@ file_path = os.path.join(directory[:-14], 'index.html') # Se le resto '/WebScrap
 '''
 file_path = 'index.html'
 
-url = "https://www.imdb.com/chart/top/?ref_=nv_mv_250"  
+url = "https://www.rottentomatoes.com/browse/movies_at_home/affiliates:netflix~sort:audience_highest"  
 response = requests.get(url)
 html_content = response.content
 
 soup = BeautifulSoup(html_content, "html.parser")
+#print(soup)
 
-td_tags = soup.find_all("td", class_="titleColumn")
+peliculas = soup.find_all('div', {'class': 'js-tile-link'})
+print(peliculas)
 
-pelis = []
-for td in td_tags:
-    peli_d = {'numero': 0, 'nombre': '', 'ano': 0, 'imagen': 'url'}
-    value = td.text.strip()            #Obtener el texto dentro de la etiqueta
-    value_list = value.split('\n')     #Separarlos por el salto de linea.
+datos_peliculas = []
+for pelicula in peliculas:
+    nombre_pelicula = pelicula.find('span', {'data-qa': 'discovery-media-list-item-title'}).text.strip()
+    fecha_streaming = pelicula.find('span', {'data-qa': 'discovery-media-list-item-start-date'}).text.strip()
+    imagen = pelicula.find('img', {'class': 'posterImage'})['src']
+    criticsscore = pelicula.find('score-pairs')['criticsscore']
+    audiencescore = pelicula.find('score-pairs')['audiencescore']
     
-    peli_d['numero'] = value_list[0][:-1]       #El primer valor es el numero. Y se le quita el punto del final
-    peli_d['nombre'] = value_list[1].strip()    #El segundo valor es el nombre, que se le eliminan espacios antes y despues
-    peli_d['ano'] = value_list[2].strip('()')   #El ultimo valor es el ano, que se le eliminan los parentesis que lo contienen.
+    datos_pelicula = {
+        'Nombre de la película': nombre_pelicula,
+        'Fecha de streaming': fecha_streaming,
+        'Imagen': imagen,
+        'Puntuación de críticos': criticsscore,
+        'Puntuación de la audiencia': audiencescore
+    }
     
-    img_element = soup.find('img', alt= peli_d['nombre'])
-    peli_d['imagen'] = img_element['src']
-    
-    pelis.append(peli_d)
-print(pelis)
+    datos_peliculas.append(datos_pelicula)
 
-peli_random = random.choice(pelis)
+
+
+for idx, pelicula in enumerate(datos_peliculas, start=1):
+    print(f"Película {idx}:")
+    print(f"Nombre: {pelicula['Nombre de la película']}")
+    print(f"Fecha de streaming: {pelicula['Fecha de streaming']}")
+    print(f"Imagen: {pelicula['Imagen']}")
+    print(f"Puntuación de críticos: {pelicula['Puntuación de críticos']}")
+    print(f"Puntuación de la audiencia: {pelicula['Puntuación de la audiencia']}")
+    print("\n")
+
 with open(file_path, 'w') as file:
     print('Inicia a crear el HTML')
     file.write('<!DOCTYPE html>\n')
@@ -51,22 +65,15 @@ with open(file_path, 'w') as file:
     
     file.write(f'<p class="fecha">Ultima Actualizacion: {(datetime.now()).strftime("%d/%m/%y, %H:%M:%S")}</p>\n')
     
-    file.write('<h2>La Pelicula del Dia es:</h2>\n')
-    file.write('<div class="pelicula">\n')
-    file.write(f'<p>Nº ' + peli_random['numero'] + '</p>\n')
-    file.write(f'<img alt="' + peli_random['nombre'] + '" height="67" src="' + peli_random['imagen'] + '" width="45"/>\n')
-    file.write('<p class="nombre">' + peli_random['nombre'] + '</p>\n')
-    file.write('<p>(' + peli_random['ano'] + ')</p>\n')
-    file.write('</div>\n')
-    
-    file.write('<h2>Resto de las Peliculas</h2>\n')
+    file.write('<h2>Peliculas</h2>\n')
     file.write('<div class="peliculas">\n')
-    for p in pelis:
+    for p in pelicula:
         file.write('<div class="pelicula">\n')
-        file.write(f'<p>Nº ' + p['numero'] + '</p>\n') #    67                                   45
-        file.write(f'<img alt="' + p['nombre'] + '" height="90" src="' + p['imagen'] + '" width="68"/>\n')
-        file.write('<p class="nombre">' + p['nombre'] + '</p>\n')
-        file.write('<p>(' + p['ano'] + ')</p>\n')
+        file.write('<img alt="' + pelicula['Nombre de la película'] + '" height="90" src="' + pelicula['Imagen'] + '" width="68"/>\n')
+        file.write(f'<p class="nombre">' + pelicula['Nombre de la película'] + '</p>\n')
+        file.write(f"Fecha de streaming: " + pelicula['Fecha de streaming'])
+        file.write(f"Puntuación de críticos: " + pelicula['Puntuación de críticos'])
+        file.write(f"Puntuación de la audiencia: " + pelicula['Puntuación de la audiencia'])
         file.write('</div>\n')
     file.write('</div>\n')
     file.write('</body>\n')
