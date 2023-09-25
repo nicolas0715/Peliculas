@@ -42,6 +42,8 @@ for div, link in zip(divs, links):
     # Agrega el diccionario a la lista de datos de películas
     datos_peliculas.append(pelicula)
 
+print(datos_peliculas)
+
 with open(file_path, 'w') as file:
     print('Inicia a crear el HTML')
     file.write('<!DOCTYPE html>\n')
